@@ -19,7 +19,9 @@ class Event < ApplicationRecord
 
 validates :nome, presence: true
 validates :data_fine, :data_inizio, presence: true
-validates :data_fine_dopo_data_inizio
+
+#validate serve per verificare tramite funzioni personalizzate
+validate :data_fine_dopo_data_inizio
 validates :luogo, :descrizione, :citta, :via, presence: true
 validates :capacita ,presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 before_create :imposta_capacita_corrente
