@@ -10,17 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_30_140542) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_30_164700) do
   create_table "events", force: :cascade do |t|
     t.string "nome"
     t.string "luogo"
-    t.datetime "data"
+    t.datetime "data_inizio"
     t.text "descrizione"
     t.integer "capacita"
     t.integer "capacita_corrente"
     t.integer "manager_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "data_fine"
+    t.string "citta"
+    t.string "via"
     t.index ["manager_id"], name: "index_events_on_manager_id"
   end
 
@@ -30,6 +33,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_30_140542) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "password"
   end
 
   create_table "notify_managers", force: :cascade do |t|
@@ -70,6 +74,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_30_140542) do
     t.text "codice_fiscale"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "password"
   end
 
   create_table "utentes", force: :cascade do |t|
