@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nome: MyString
+  luogo: MyString
+  data: 2024-03-30 14:46:22
+  descrizione: MyText
+  capacita: 1
+  capacita_corrente: 1
+  manager: one
+
+two:
+  nome: MyString
+  luogo: MyString
+  data: 2024-03-30 14:46:22
+  descrizione: MyText
+  capacita: 1
+  capacita_corrente: 1
+  manager: two

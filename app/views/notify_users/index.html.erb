@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Notify users</h1>
+
+<div id="notify_users">
+  <% @notify_users.each do |notify_user| %>
+    <%= render notify_user %>
+    <p>
+      <%= link_to "Show this notify user", notify_user %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New notify user", new_notify_user_path %>
