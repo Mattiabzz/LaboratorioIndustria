@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'pages/index'
   resources :notify_managers
   resources :notify_users
   resources :reservations
@@ -13,5 +14,14 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root "pages#index"
+
+  post '/user_login', to: 'users#login'
+  post '/manager_login', to: 'managers#manager_login'
+
+  get '/user_dashboard', to: 'users#dashboard'
+  get '/manager_dashboard', to: 'managers#dashboard'
+
+  post '/login', to: 'pages#login'
+
 end

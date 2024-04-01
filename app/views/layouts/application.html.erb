@@ -11,6 +11,21 @@
   </head>
 
   <body>
+
+    <!-- stampa solo i flash di errore-->
+    <% if flash[:error] %>
+      <div class="flash-error"><%= flash[:error] %></div>
+    <% end %>
+
+    <!-- stampa tutti i flash-->
+    <% flash.each do |message_type, message| %>
+      <div class="flash-<%= message_type %>"><%= message %></div>
+    <% end %>
+
+
+
     <%= yield %>
+
+
   </body>
 </html>

@@ -56,6 +56,36 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  #metodo che viene reso disponibile nelle view
+  helper_method :current_user
+  #recupero informazioni utente
+  private
+  def current_user
+    @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
+  end
+
+
+  #login per l'utente
+  # def login
+  #   puts "Hai raggiunto il metodo login!"
+    
+  #   @user = User.find_by(email: params[:email])
+
+  #   if @user && @user.password == params[:password]
+  #     # Utente autenticato con successo
+  #     # Puoi impostare una sessione per mantenere l'utente autenticato
+  #     session[:user_id] = @user.id
+
+  #     logger.info "Utente autenticato con successo: #{@user.id}"
+  #     redirect_to user_dashboard_path, notice: "loggato"# Reindirizza all'area riservata
+  #   else
+  #     flash[:error] = "Credenziali non valide"
+  #     redirect_to root_path # Reindirizza nuovamente alla homepage
+  #   end
+  # end
+
+ 
 
   private
     # Use callbacks to share common setup or constraints between actions.
