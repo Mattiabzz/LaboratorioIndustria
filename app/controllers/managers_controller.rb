@@ -8,6 +8,7 @@ class ManagersController < ApplicationController
 
   # GET /managers/1 or /managers/1.json
   def show
+    @events = @current_user.events
   end
 
   # GET /managers/new
@@ -62,6 +63,13 @@ class ManagersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def dashboard
+     # Assumi che tu abbia un metodo per recuperare il manager attualmente connesso
+     @m = Manager.find_by(id: session[:manager_id]) if session[:manager_id]
+     @events = @m.events
+     
+  end
 
   #metodo che viene reso disponibile nelle view
   helper_method :current_user
@@ -70,7 +78,6 @@ class ManagersController < ApplicationController
   def current_user
     @current_user ||= Manager.find_by(id: session[:manager_id]) if session[:manager_id]
   end
-
 
 
   private
