@@ -16,12 +16,15 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "pages#index"
 
-  post '/user_login', to: 'users#login'
-  post '/manager_login', to: 'managers#manager_login'
+  #post '/user_login', to: 'users#login'
+  #post '/manager_login', to: 'managers#manager_login'
 
   get '/user_dashboard', to: 'users#dashboard'
   get '/manager_dashboard', to: 'managers#dashboard'
 
   post '/login', to: 'pages#login'
+
+  delete '/logout_manager', to: 'pages#logout_manager'
+  delete '/logout_user', to: 'pages#logout_user'
 
 end

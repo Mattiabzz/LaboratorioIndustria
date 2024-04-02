@@ -8,7 +8,7 @@ def new
 end
 
 
-  def login
+  def login  
     @user = User.find_by(email: params[:email])
     @manager = Manager.find_by(email: params[:email])
 
@@ -35,9 +35,14 @@ end
     end
   end
 
+  def logout_manager
+    session[:manager_id] = nil
+    redirect_to root_path, notice: "Logout effettuato con successo."
+  end
 
-
-
-
+  def logout_user
+    session[:user_id] = nil
+    redirect_to root_path, notice: "Logout effettuato con successo."
+  end
 
 end

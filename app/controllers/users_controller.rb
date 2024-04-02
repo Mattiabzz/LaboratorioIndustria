@@ -25,7 +25,8 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to user_url(@user), notice: "User was successfully created." }
+        session[:user_id] = @user.id #dato che non passo nulla crea la sessione per id post salvtaggio
+        format.html { redirect_to user_dashboard_path, notice: "User was successfully created." }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -95,6 +96,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:nome, :cognome, :email, :eta, :codice_fiscale)
+      params.require(:user).permit(:nome, :cognome, :email, :eta, :codice_fiscale, :password)
     end
 end

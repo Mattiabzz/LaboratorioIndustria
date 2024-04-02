@@ -23,13 +23,19 @@ class ManagersController < ApplicationController
   def create
     @manager = Manager.new(manager_params)
 
+    
+    #logger.info "Manger reg con successo: #{@manager.id}"
     respond_to do |format|
       if @manager.save
-        format.html { redirect_to manager_url(@manager), notice: "Manager was successfully created." }
+        session[:manager_id] = @manager.id #dato che non passo nulla crea la sessione per id post salvtaggio
+        format.html { redirect_to manager_dashboard_path, notice: "Manager was successfully created." }
         format.json { render :show, status: :created, location: @manager }
+        #puts "ho creato il record di manger e sono prima del redirect!"
+        #redirect_to manager_dashboard_path, notice: "registrazione effettuato come manager."
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @manager.errors, status: :unprocessable_entity }
+        #render :new
       end
     end
   end
@@ -38,7 +44,7 @@ class ManagersController < ApplicationController
   def update
     respond_to do |format|
       if @manager.update(manager_params)
-        format.html { redirect_to manager_url(@manager), notice: "Manager was successfully updated." }
+        format.html { redirect_to manager_dashboard_path, notice: "Manager was successfully updated." }
         format.json { render :show, status: :ok, location: @manager }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -62,8 +68,10 @@ class ManagersController < ApplicationController
   #recupero informazioni utente
   private
   def current_user
-    @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
+    @current_user ||= Manager.find_by(id: session[:manager_id]) if session[:manager_id]
   end
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -73,6 +81,6 @@ class ManagersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def manager_params
-      params.require(:manager).permit(:nome, :cognome, :email)
+      params.require(:manager).permit(:nome, :cognome, :email, :password)
     end
 end

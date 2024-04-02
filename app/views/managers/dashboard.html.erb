@@ -2,4 +2,10 @@
     <h1>Dashboard di <%= current_user.nome %>!</h1>
     <p>Benvenuto nella dashboard da manager</p>
 
+
+<% end %>
+
+<!-- Bottone di logout -->
+<% if current_user %>
+    <%= button_to "Logout", logout_manager_path, method: :delete %>
 <% end %>
