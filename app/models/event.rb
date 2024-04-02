@@ -1,11 +1,11 @@
 class Event < ApplicationRecord
   #un evento ha un solo organizatore
-  belongs_to :manager
+  belongs_to :manager, optional: true 
 
   #un evento ha più prenotazioni
-  has_many :reservation
-  has_many :user,
-  :through => :reservation
+  has_many :reservations
+  has_many :users,
+  :through => :reservations
 
   #un evento ha più notifiche per gli utenti
   has_many :notify_user
@@ -13,9 +13,9 @@ class Event < ApplicationRecord
 :through => :notify_user
 
  #un evento ha più notifiche per i manager
- has_many :notify_manager
- has_many :manager,
-:through => :notify_manager
+ has_many :notify_managers
+ has_many :managers,
+:through => :notify_managers
 
 validates :nome, presence: true
 validates :data_fine, :data_inizio, presence: true

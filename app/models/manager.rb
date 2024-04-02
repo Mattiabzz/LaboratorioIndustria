@@ -1,10 +1,10 @@
 class Manager < ApplicationRecord
 #un manager ha più eventi 
-has_many :event
+has_many :events
 # un manager può avere più notifiche 
-has_many :notify_manager
-has_many :event,
-:through => :notify_manager
+has_many :notify_managers
+has_many :events,
+:through => :notify_managers
 
 
 validates :nome, presence: true

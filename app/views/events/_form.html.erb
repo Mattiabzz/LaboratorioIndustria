@@ -17,25 +17,26 @@
   </div>
 
   <div>
-    <%= form.label :luogo, style: "display: block" %>
-    <%= form.text_field :luogo %>
-  </div>
-
-  <div>
-    <%= form.label :data, style: "display: block" %>
-    <%= form.datetime_field :data %>
-  </div>
-
-  <div>
     <%= form.label :descrizione, style: "display: block" %>
     <%= form.text_area :descrizione %>
   </div>
 
   <div>
+    <%= form.label :data_inizio, style: "display: block" %>
+    <%= form.datetime_field :data_inizio %>
+  </div>
+
+  <div>
+    <%= form.label :data_fine, style: "display: block" %>
+    <%= form.datetime_field :data_fine %>
+  </div>
+
+
+  <div>
     <%= form.label :capacita, style: "display: block" %>
     <%= form.number_field :capacita %>
   </div>
-
+<!--
   <div>
     <%= form.label :capacita_corrente, style: "display: block" %>
     <%= form.number_field :capacita_corrente %>
@@ -45,7 +46,22 @@
     <%= form.label :manager_id, style: "display: block" %>
     <%= form.text_field :manager_id %>
   </div>
+-->
+  <div>
+    <%= form.label :luogo, style: "display: block" %>
+    <%= form.text_field :luogo %>
+  </div>
 
+ <div>
+    <%= form.label :citta, style: "display: block" %>
+    <%= form.text_field :citta %>
+  </div>
+
+   <div>
+    <%= form.label :via, style: "display: block" %>
+    <%= form.text_field :via %>
+  </div>
+  
   <div>
     <%= form.submit %>
   </div>

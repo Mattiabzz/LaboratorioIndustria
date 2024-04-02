@@ -5,7 +5,17 @@
 
 <% end %>
 
+<div class="registration-link">
+    <%= link_to "Crea un nuovo evento", new_event_path%>
+</div>
+
+<div>
+<p>I miei eventi </p>
+
+
+</div>
 <!-- Bottone di logout -->
 <% if current_user %>
     <%= button_to "Logout", logout_manager_path, method: :delete %>
 <% end %>
+
