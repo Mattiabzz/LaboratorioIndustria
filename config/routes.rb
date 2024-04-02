@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get 'pages/index'
   resources :notify_managers
   resources :notify_users
-  resources :reservations
+  resources :reservations ,only: [:create, :destroy]
   resources :events
   resources :managers
   resources :users
@@ -26,5 +26,9 @@ Rails.application.routes.draw do
 
   delete '/logout_manager', to: 'pages#logout_manager'
   delete '/logout_user', to: 'pages#logout_user'
+
+  get '/ricerca_eventi', to: 'events#ricerca_eventi'
+
+  #post 'prenota_evento' to: 'reservation#prenota_evento'
 
 end
