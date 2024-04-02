@@ -7,7 +7,7 @@
 
 
 <div>
-<% if @reservation.present? %>
+<% if @reservations.present? %>
   <h2>Eventi alla quale partecipi <%= @u.nome %></h2>
             <table>
             <thead>
@@ -21,24 +21,26 @@
                 <th>Data Fine</th>
                 <th>Capacita</th>
                 <th>Capaccita corrente</th>
+                <th>Prenotato il</th>
                 <th>Modifica</th>
                 
                 <!-- Aggiungi altre colonne secondo necessità -->
                 </tr>
             </thead>
             <tbody>
-                <% @reservation.each do |event| %>
+                <% @reservations.each do |reservation| %>
                 <tr>
-                    <td><%= event.nome %></td>
-                    <td><%= event.descrizione %></td>
-                    <td><%= event.luogo %></td>
-                    <td><%= event.citta %></td>
-                    <td><%= event.via %></td>
-                    <td><%= event.data_inizio %></td>
-                    <td><%= event.data_fine %></td>
-                    <td><%= event.capacita %></td>
-                    <td><%= event.capacita_corrente %></td> 
-                    <td>Cancella prenotazine</td>
+                    <td><%= reservation.event.nome %></td>
+                    <td><%= reservation.event.descrizione %></td>
+                    <td><%= reservation.event.luogo %></td>
+                    <td><%= reservation.event.citta %></td>
+                    <td><%= reservation.event.via %></td>
+                    <td><%= reservation.event.data_inizio %></td>
+                    <td><%= reservation.event.data_fine %></td>
+                    <td><%= reservation.event.capacita %></td>
+                    <td><%= reservation.event.capacita_corrente %></td> 
+                    <td><%= reservation.data_prenotazione %></td> 
+                    <td><%= button_to "Cancella", reservation_path(reservation),method: :delete ,data: { confirm: "Sei sicuro di voler cancellare questa prenotazione?" }%></td></td>
                     <!-- Aggiungi altre colonne secondo necessità -->
                 </tr>
                 <% end %>
@@ -49,6 +51,9 @@
 <% end %>
 </div>
 
+<div class="ricerca-eventi">
+    <%= link_to "Cerca nuovi eventi", ricerca_eventi_path %>
+</div>
 
 
 <!-- Bottone di logout -->

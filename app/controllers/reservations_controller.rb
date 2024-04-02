@@ -22,10 +22,18 @@ class ReservationsController < ApplicationController
   # POST /reservations or /reservations.json
   def create
     @reservation = Reservation.new(reservation_params)
+    current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
+
+    reservation = current_user.reservations.build(reservation_params)
+    reservation.data_prenotazione = Time.zone.now
+
+    puts "time zone now => #{Time.zone.now}"
+
+    #puts "reservaton è valido? #{reservation.valid?}"
 
     respond_to do |format|
-      if @reservation.save
-        format.html { redirect_to reservation_url(@reservation), notice: "Reservation was successfully created." }
+      if reservation.save
+        format.html { redirect_to ricerca_eventi_path, notice: "Reservation was successfully created." }
         format.json { render :show, status: :created, location: @reservation }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -52,7 +60,7 @@ class ReservationsController < ApplicationController
     @reservation.destroy!
 
     respond_to do |format|
-      format.html { redirect_to reservations_url, notice: "Reservation was successfully destroyed." }
+      format.html { redirect_to user_dashboard_path, notice: "Reservation was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -65,6 +73,6 @@ class ReservationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def reservation_params
-      params.require(:reservation).permit(:user_id, :event_id, :data_prenotazione)
+      params.require(:reservation).permit( :event_id)
     end
 end

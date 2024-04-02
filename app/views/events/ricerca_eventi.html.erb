@@ -1,0 +1,53 @@
+<%= form_tag(ricerca_eventi_path, method: "get") do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Cerca eventi..." %>
+  <%= submit_tag "Cerca" %>
+<% end %>
+
+<% if @events.present? %>
+
+<table>
+            <thead>
+                <tr>
+                <th>Nome dell'evento</th>
+                <th>Descrizione</th>
+                <th>Luogo</th>
+                <th>Citta</th>
+                <th>Via</th>
+                <th>Data Inizio</th>
+                <th>Data Fine</th>
+                <th>Capacita</th>
+                <th>Capaccita corrente</th>
+                <th>Prenota</th>
+                
+                <!-- Aggiungi altre colonne secondo necessità -->
+                </tr>
+            </thead>
+            <tbody>
+                <% @events.each do |event| %>
+                <tr>
+                    <td><%= event.nome %></td>
+                    <td><%= event.descrizione %></td>
+                    <td><%= event.luogo %></td>
+                    <td><%= event.citta %></td>
+                    <td><%= event.via %></td>
+                    <td><%= event.data_inizio %></td>
+                    <td><%= event.data_fine %></td>
+                    <td><%= event.capacita %></td>
+                    <td><%= event.capacita_corrente %></td> 
+                    <td><%= button_to "Prenota", reservations_path, params: { reservation: { event_id: event.id } },method: :post %></td>
+                    <!-- Aggiungi altre colonne secondo necessità -->
+                </tr>
+                <% end %>
+            </tbody>
+            </table>
+
+
+
+ 
+<% else %>
+  <p>Nessun evento disponibile</p>
+<% end %>
+
+<!-- Bottone di logout -->
+<%= link_to "Torna alla dashboard", user_dashboard_path %>
+
