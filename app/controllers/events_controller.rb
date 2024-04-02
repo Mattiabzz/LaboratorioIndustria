@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: %i[ show edit update destroy ]
-  before_action :set_current_manager
+  #before_action :set_current_manager
 
   # GET /events or /events.json
   def index
@@ -23,11 +23,11 @@ class EventsController < ApplicationController
 
   # POST /events or /events.json
   def create
-    m = Manager.find(@current_manager.id)
+    m = Manager.find(session[:manager_id])
     puts " valore di current manager valido tramite find=> #{m.valid?}"
     puts " valore ID di current manager tramite find=> #{m.id}"
 
-    event_params_with_additional_values = event_params.merge(manager_id: @current_manager.id)
+    event_params_with_additional_values = event_params.merge(manager_id: m.id)
     #puts "valore di params mergati => #{event_params_with_additional_values}"
     @event = Event.new(event_params_with_additional_values)
     #@event.manager_id = @current_manager.id
@@ -72,9 +72,14 @@ class EventsController < ApplicationController
     end
   end
 
-  def set_current_manager
-    @current_manager = Manager.find(session[:manager_id])
+  def ricerca_eventi
+
+    
   end
+
+  # def set_current_manager
+  #   @current_manager = Manager.find(session[:manager_id])
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.
