@@ -58,6 +58,14 @@ class UsersController < ApplicationController
     end
   end
   
+  def dashboard
+    # Assumi che tu abbia un metodo per recuperare il manager attualmente connesso
+    @u = User.find_by(id: session[:user_id]) if session[:user_id]
+
+    @reservation = @u.reservations
+    
+ end
+
   #metodo che viene reso disponibile nelle view
   helper_method :current_user
   #recupero informazioni utente

@@ -4,6 +4,55 @@
 
 <% end %>
 
+
+
+<div>
+<% if @reservation.present? %>
+  <h2>Eventi alla quale partecipi <%= @u.nome %></h2>
+            <table>
+            <thead>
+                <tr>
+                <th>Nome dell'evento</th>
+                <th>Descrizione</th>
+                <th>Luogo</th>
+                <th>Citta</th>
+                <th>Via</th>
+                <th>Data Inizio</th>
+                <th>Data Fine</th>
+                <th>Capacita</th>
+                <th>Capaccita corrente</th>
+                <th>Ispeziona</th>
+                <th>Modifica</th>
+                
+                <!-- Aggiungi altre colonne secondo necessità -->
+                </tr>
+            </thead>
+            <tbody>
+                <% @events.each do |event| %>
+                <tr>
+                    <td><%= event.nome %></td>
+                    <td><%= event.descrizione %></td>
+                    <td><%= event.luogo %></td>
+                    <td><%= event.citta %></td>
+                    <td><%= event.via %></td>
+                    <td><%= event.data_inizio %></td>
+                    <td><%= event.data_fine %></td>
+                    <td><%= event.capacita %></td>
+                    <td><%= event.capacita_corrente %></td> 
+                    <td>Controlla partecipanti</td>
+                    <td>Modifica</td>
+                    <!-- Aggiungi altre colonne secondo necessità -->
+                </tr>
+                <% end %>
+            </tbody>
+            </table>
+<% else %>
+  <p>Nessun evento trovato per questo utente.</p>
+<% end %>
+</div>
+
+
+
 <!-- Bottone di logout -->
 <% if current_user %>
     <%= button_to "Logout", logout_user_path, method: :delete %>

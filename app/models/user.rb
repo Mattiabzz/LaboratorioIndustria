@@ -1,14 +1,14 @@
 class User < ApplicationRecord
     
 #una persona può partecipare a più eventi 
-has_many :reservation 
-has_many :event,
-:through => :reservation
+has_many :reservations
+has_many :events,
+:through => :reservations
 
 #una persona ha più notifiche 
-has_many :notify_user
-has_many :event,
-:through => :notify_user
+has_many :notify_users
+has_many :events,
+:through => :notify_users, source: :event
 
 validates :nome, presence: true
 validates :cognome, presence: true
