@@ -21,14 +21,13 @@
                 <th>Data Fine</th>
                 <th>Capacita</th>
                 <th>Capaccita corrente</th>
-                <th>Ispeziona</th>
                 <th>Modifica</th>
                 
                 <!-- Aggiungi altre colonne secondo necessità -->
                 </tr>
             </thead>
             <tbody>
-                <% @events.each do |event| %>
+                <% @reservation.each do |event| %>
                 <tr>
                     <td><%= event.nome %></td>
                     <td><%= event.descrizione %></td>
@@ -39,8 +38,7 @@
                     <td><%= event.data_fine %></td>
                     <td><%= event.capacita %></td>
                     <td><%= event.capacita_corrente %></td> 
-                    <td>Controlla partecipanti</td>
-                    <td>Modifica</td>
+                    <td>Cancella prenotazine</td>
                     <!-- Aggiungi altre colonne secondo necessità -->
                 </tr>
                 <% end %>
