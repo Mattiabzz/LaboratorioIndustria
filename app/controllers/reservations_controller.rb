@@ -36,8 +36,12 @@ class ReservationsController < ApplicationController
         format.html { redirect_to ricerca_eventi_path, notice: "Reservation was successfully created." }
         format.json { render :show, status: :created, location: @reservation }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @reservation.errors, status: :unprocessable_entity }
+        #format.html { render :new, status: :unprocessable_entity }
+        #format.json { render json: @reservation.errors, status: :unprocessable_entity }
+        flash[:error] = 'Ha già un evento in quel intervallo di tempo.'
+        #render 'events/ricerca_eventi'
+        #puts flash.inspect
+        format.html { redirect_to ricerca_eventi_path }
       end
     end
   end
