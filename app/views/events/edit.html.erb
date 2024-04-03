@@ -4,7 +4,13 @@
 
 <br>
 
+
 <div>
-  <%= link_to "Show this event", @event %> |
-  <%= link_to "Back to events", events_path %>
+  <!-- link per cancellare l'evento-->
+  <%= button_to "Cancella questo evento", event_path(@event), method: :delete %>
+</div>
+
+<div>
+  <!--<%= link_to "Show this event", @event %> | -->
+  <%= link_to "Torna alla dashboard", manager_dashboard_path %>
 </div>

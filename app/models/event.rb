@@ -30,6 +30,9 @@ validates :luogo, :descrizione, :citta, :via, presence: true
 validates :capacita ,presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 before_create :imposta_capacita_corrente
 
+after_update :notify_users_of_changes
+before_destroy :cancella_prenotazioni
+after_update :notify_capacita_massima_raggiunta
 
 def data_fine_dopo_data_inizio
   #data_inizio && data_fine controlla che non sia null && poi controlla che fine sia maggiore di inizio
@@ -40,6 +43,42 @@ end
 
 def imposta_capacita_corrente
   self.capacita_corrente = 0
+end
+
+def notify_users_of_changes
+  changes = saved_changes.except('capacita_corrente','updated_at')
+ 
+  if !changes.empty?
+
+      users.each do |user|
+
+
+        # Salva un record nella tabella notifyUser per ogni utente
+        NotifyUser.create(tipo: changes,user_id: user.id, event_id: id)
+      end
+
+    end
+end
+
+def cancella_prenotazioni
+  # Trova e cancella tutte le prenotazioni relative a questo evento
+
+  users.each do |user|
+
+
+    # Salva un record nella tabella notifyUser per ogni utente
+    NotifyUser.create(tipo: "cancellazione evento " + nome,user_id: user.id, event_id: id)
+
+  end
+
+  reservations.destroy_all
+end
+
+def notify_capacita_massima_raggiunta
+  # Trova e cancella tutte le prenotazioni relative a questo evento
+  if capacita_corrente >= capacita
+    NotifyManager.create(tipo: "Capacita' massima raggiunta " + nome,manager_id: manager.id, event_id: id)
+  end
 end
 
 end

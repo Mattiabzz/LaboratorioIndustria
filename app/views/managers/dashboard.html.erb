@@ -43,7 +43,7 @@
                     <td><%= event.capacita %></td>
                     <td><%= event.capacita_corrente %></td> 
                     <td> <%= link_to "Ispeziona partecipanti", ispeziona_eventi_path(event_id: event.id) %></td>
-                    <td>Modifica</td>
+                    <td><%= link_to "Modifica evento", edit_event_path(event) %></td>
                     <!-- Aggiungi altre colonne secondo necessità -->
                 </tr>
                 <% end %>

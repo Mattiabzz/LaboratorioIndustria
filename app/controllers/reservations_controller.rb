@@ -62,9 +62,18 @@ class ReservationsController < ApplicationController
 
   # DELETE /reservations/1 or /reservations/1.json
   def destroy
+    invocatore = params[:invocatore]
+
+    if invocatore == "manager"
+         @reservation.cancellazione_parte_manager = true
+    else
+         @reservation.cancellazione_parte_utente = true
+    end
+
     @reservation.destroy!
 
-    invocatore = params[:invocatore]
+
+    
 
     if invocatore == "manager"
       respond_to do |format|
