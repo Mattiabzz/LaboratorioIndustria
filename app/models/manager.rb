@@ -6,7 +6,7 @@ has_many :events
 has_many :notify_managers
 #has_many :events,
 #:through => :notify_managers
-has_many :notification_events, through: :notify_managers, source: :event
+#has_many :notification_events, through: :notify_managers, source: :event
 
 
 validates :nome, presence: true

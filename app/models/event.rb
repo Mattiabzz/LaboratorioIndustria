@@ -11,15 +11,15 @@ class Event < ApplicationRecord
 #   has_many :notify_users
 #   has_many :users,
 # :through => :notify_user
-  has_many :user_notifications, class_name: 'NotifyUser'
-  has_many :notified_users, through: :user_notifications, source: :user
+  # has_many :user_notifications, class_name: 'NotifyUser'
+  # has_many :notified_users, through: :user_notifications, source: :user
 
  #un evento ha più notifiche per i manager
 #  has_many :notify_managers
 #  has_many :managers,
 # :through => :notify_managers
-  has_many :manager_notifications, class_name: 'NotifyManager'
-  has_many :notified_managers, through: :manager_notifications, source: :manager
+  # has_many :manager_notifications, class_name: 'NotifyManager'
+  # has_many :notified_managers, through: :manager_notifications, source: :manager
 
 validates :nome, presence: true
 validates :data_fine, :data_inizio, presence: true

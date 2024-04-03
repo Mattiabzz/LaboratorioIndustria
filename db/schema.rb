@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_30_164700) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_03_164008) do
   create_table "events", force: :cascade do |t|
     t.string "nome"
     t.string "luogo"
@@ -39,20 +39,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_30_164700) do
   create_table "notify_managers", force: :cascade do |t|
     t.text "tipo"
     t.integer "manager_id", null: false
-    t.integer "event_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["event_id"], name: "index_notify_managers_on_event_id"
+    t.boolean "letto", default: false
     t.index ["manager_id"], name: "index_notify_managers_on_manager_id"
   end
 
   create_table "notify_users", force: :cascade do |t|
     t.text "tipo"
     t.integer "user_id", null: false
-    t.integer "event_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["event_id"], name: "index_notify_users_on_event_id"
+    t.boolean "letto", default: false
     t.index ["user_id"], name: "index_notify_users_on_user_id"
   end
 
@@ -89,9 +87,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_30_164700) do
   end
 
   add_foreign_key "events", "managers"
-  add_foreign_key "notify_managers", "events"
   add_foreign_key "notify_managers", "managers"
-  add_foreign_key "notify_users", "events"
   add_foreign_key "notify_users", "users"
   add_foreign_key "reservations", "events"
   add_foreign_key "reservations", "users"
