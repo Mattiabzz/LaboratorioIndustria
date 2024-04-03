@@ -73,8 +73,7 @@ class EventsController < ApplicationController
   end
 
   def ricerca_eventi
-    puts "sono in ricerca_eventi"
-
+    
     if params[:search].present?
       @events = Event.where("capacita_corrente < capacita AND nome LIKE ? OR descrizione LIKE ? OR luogo LIKE ? OR citta LIKE ? OR via LIKE ?" ,"%#{params[:search]}%","%#{params[:search]}%","%#{params[:search]}%","%#{params[:search]}%","%#{params[:search]}%")
     else
@@ -86,6 +85,17 @@ class EventsController < ApplicationController
   # def set_current_manager
   #   @current_manager = Manager.find(session[:manager_id])
   # end
+def ispeziona_eventi
+ #puts "sono in ispeziona eventi"
+ id = params[:event_id]
+ #puts "ho trovoato questo parametro con event_id => #{id}"
+ @e = Event.find(id)
+
+ @reservations = @e.reservations.includes(:user)
+ #puts "valore di  @e => #{@users}"
+
+end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

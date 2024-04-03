@@ -42,7 +42,7 @@
                     <td><%= event.data_fine %></td>
                     <td><%= event.capacita %></td>
                     <td><%= event.capacita_corrente %></td> 
-                    <td>Controlla partecipanti</td>
+                    <td> <%= link_to "Ispeziona partecipanti", ispeziona_eventi_path(event_id: event.id) %></td>
                     <td>Modifica</td>
                     <!-- Aggiungi altre colonne secondo necessità -->
                 </tr>

@@ -1,0 +1,60 @@
+<% if @e.present? %>
+    <div class="informazioni evento">
+        <p>informazioni evento</p>
+        <p>nome = <%= @e.nome%></p>
+        <p>descrizione = <%= @e.descrizione%></p>
+        <p>data_inizio = <%= @e.data_inizio%></p>
+        <p>data_fine = <%= @e.data_fine%></p>
+        <p>capacita totale = <%= @e.capacita%></p>
+        <p>capacita_corrente = <%= @e.capacita_corrente%></p>
+    </div>
+
+    <div class="tabella partecipanti">
+
+        <% if @reservations.present? %>
+
+             <table>
+                <thead>
+                    <tr>
+                    <th>Nome</th>
+                    <th>Cognome</th>
+                    <th>email</th>
+                    <th>Data prenotazione</th>
+                    <th>Elimina</th>
+                    
+                    
+                    <!-- Aggiungi altre colonne secondo necessità -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @reservations.each do |reservation| %>
+                    <tr>
+                        <td><%= reservation.user.nome %></td>
+                        <td><%= reservation.user.cognome %></td>
+                        <td><%= reservation.user.email %></td>
+                        <td><%= reservation.data_prenotazione %></td>
+                        
+                        
+                        <td><%= button_to "Cancella", reservation_path(reservation, invocatore: "manager"),method: :delete ,data: { confirm: "Sei sicuro di voler cancellare questa prenotazione?" }%></td>
+                        <!-- Aggiungi altre colonne secondo necessità -->
+                    </tr>
+                    <% end %>
+                </tbody>
+            </table>
+
+
+
+
+        <% else %>
+            <p>Nessun partecipante</p>
+        <% end %>
+
+    </div>
+
+
+<% else %>
+  <p>Nessun informazioni evento</p>
+<% end %>
+
+<!-- Bottone di back -->
+<%= link_to "Torna alla dashboard", manager_dashboard_path %>

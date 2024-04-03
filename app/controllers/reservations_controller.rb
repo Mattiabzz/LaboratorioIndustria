@@ -21,6 +21,7 @@ class ReservationsController < ApplicationController
 
   # POST /reservations or /reservations.json
   def create
+    puts "SONO IN CREATE"
     @reservation = Reservation.new(reservation_params)
     current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
 
@@ -63,9 +64,19 @@ class ReservationsController < ApplicationController
   def destroy
     @reservation.destroy!
 
-    respond_to do |format|
-      format.html { redirect_to user_dashboard_path, notice: "Reservation was successfully destroyed." }
-      format.json { head :no_content }
+    invocatore = params[:invocatore]
+
+    if invocatore == "manager"
+      respond_to do |format|
+        format.html { redirect_to ispeziona_eventi_path, notice: "Reservation was successfully destroyed." }
+        format.json { head :no_content }
+      end
+
+    else
+      respond_to do |format|
+        format.html { redirect_to user_dashboard_path, notice: "Reservation was successfully destroyed." }
+        format.json { head :no_content }
+      end
     end
   end
 

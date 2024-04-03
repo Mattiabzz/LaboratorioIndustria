@@ -40,7 +40,7 @@
                     <td><%= reservation.event.capacita %></td>
                     <td><%= reservation.event.capacita_corrente %></td> 
                     <td><%= reservation.data_prenotazione %></td> 
-                    <td><%= button_to "Cancella", reservation_path(reservation),method: :delete ,data: { confirm: "Sei sicuro di voler cancellare questa prenotazione?" }%></td></td>
+                    <td><%= button_to "Cancella", reservation_path(reservation, invocatore: "user"),method: :delete ,data: { confirm: "Sei sicuro di voler cancellare questa prenotazione?" }%></td>
                     <!-- Aggiungi altre colonne secondo necessità -->
                 </tr>
                 <% end %>

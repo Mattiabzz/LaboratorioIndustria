@@ -29,6 +29,9 @@ Rails.application.routes.draw do
 
   get '/ricerca_eventi', to: 'events#ricerca_eventi'
 
+
+  get '/ispeziona_eventi', to: 'events#ispeziona_eventi'
+
   #post 'prenota_evento' to: 'reservation#prenota_evento'
 
 end
