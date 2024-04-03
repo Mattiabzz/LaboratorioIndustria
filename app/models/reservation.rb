@@ -33,10 +33,10 @@ class Reservation < ApplicationRecord
 
     if cancellazione_parte_manager == true
       # Crea un record nella tabella NotifyUser prima di cancellare la prenotazione
-      NotifyUser.create(tipo: "cancellata prenotazione da parte del manager", user_id: user.id, event_id: event.id)
+      NotifyUser.create(tipo: "cancellata prenotazione da parte del manager dell'evento " + event.nome, user_id: user.id)
     elsif cancellazione_parte_utente == true
       e = Event.find(event.id)
-      NotifyManager.create(tipo: "Utente ha cancellato la prenotazione => " +user.nome+" "+user.cognome, manager_id: e.manager_id, event_id: event.id)
+      NotifyManager.create(tipo: "Utente => " +user.nome+" "+user.cognome+ " ha cancellato la prenotazione da "+event.nome, manager_id: e.manager_id)
 
     end
   end
@@ -44,7 +44,7 @@ class Reservation < ApplicationRecord
   def notifica_manager
 
     e = Event.find(event.id)
-    NotifyManager.create(tipo: "Utente ha effettuato la prenotazione => " +user.nome+" "+user.cognome, manager_id: e.manager_id, event_id: event.id)
+    NotifyManager.create(tipo: "Utente => " +user.nome+" "+user.cognome+ " ha effettuato la prenotazione di "+e.nome, manager_id: e.manager_id)
     
   end
 

@@ -54,7 +54,7 @@ def notify_users_of_changes
 
 
         # Salva un record nella tabella notifyUser per ogni utente
-        NotifyUser.create(tipo: changes,user_id: user.id, event_id: id)
+        NotifyUser.create(tipo: changes,user_id: user.id)
       end
 
     end
@@ -67,7 +67,7 @@ def cancella_prenotazioni
 
 
     # Salva un record nella tabella notifyUser per ogni utente
-    NotifyUser.create(tipo: "cancellazione evento " + nome,user_id: user.id, event_id: id)
+    NotifyUser.create(tipo: "cancellazione evento " + nome,user_id: user.id)
 
   end
 
@@ -77,7 +77,7 @@ end
 def notify_capacita_massima_raggiunta
   # Trova e cancella tutte le prenotazioni relative a questo evento
   if capacita_corrente >= capacita
-    NotifyManager.create(tipo: "Capacita' massima raggiunta " + nome,manager_id: manager.id, event_id: id)
+    NotifyManager.create(tipo: "Capacita' massima raggiunta " + nome,manager_id: manager.id)
   end
 end
 

@@ -67,7 +67,7 @@ class EventsController < ApplicationController
     @event.destroy!
 
     respond_to do |format|
-      format.html { redirect_to events_url, notice: "Event was successfully destroyed." }
+      format.html { redirect_to manager_dashboard_path, notice: "Event was successfully destroyed." }
       format.json { head :no_content }
     end
   end
