@@ -63,6 +63,11 @@
   <p>Nessun evento trovato per questo manager.</p>
 <% end %>
 </div>
+
+<% if current_user %>
+    <%= link_to "Modifica il tuo profilo", edit_manager_path(@m), method: :update %>
+<% end %>
+
 <!-- Bottone di logout -->
 <% if current_user %>
     <%= button_to "Logout", logout_manager_path, method: :delete %>

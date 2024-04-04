@@ -62,6 +62,10 @@
     <%= link_to "Cerca nuovi eventi", ricerca_eventi_path %>
 </div>
 
+<% if current_user %>
+    <%= link_to "Modifica il tuo profilo", edit_user_path(@u), method: :update %>
+<% end %>
+
 
 <!-- Bottone di logout -->
 <% if current_user %>
