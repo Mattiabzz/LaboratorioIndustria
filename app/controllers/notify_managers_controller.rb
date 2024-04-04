@@ -64,7 +64,7 @@ class NotifyManagersController < ApplicationController
 
     @notifiche_vecchie = manager.notify_managers.where(letto: true)
 
-    #manager.notify_managers.where(letto: false).update_all(letto: true)
+    manager.notify_managers.where(letto: false).update_all(letto: true)
 
   end
 
