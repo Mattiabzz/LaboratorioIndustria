@@ -57,6 +57,17 @@ class NotifyUsersController < ApplicationController
     end
   end
 
+  def notifiche_utenti
+    utente = User.find(params[:user_id])
+
+    @notifiche_nuove = utente.notify_users.where(letto: false).to_a.dup
+
+    @notifiche_vecchie = utente.notify_users.where(letto: true)
+
+    utente.notify_users.where(letto: false).update_all(letto: true)
+
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_notify_user
@@ -65,6 +76,6 @@ class NotifyUsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def notify_user_params
-      params.require(:notify_user).permit(:tipo, :user_id, :event_id)
+      params.require(:notify_user).permit(:tipo, :user_id)
     end
 end

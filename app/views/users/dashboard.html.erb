@@ -4,7 +4,14 @@
 
 <% end %>
 
-
+<div class="notifiche">
+    <% if @notifiche != 0 %>
+        <p>ci sono <%=@notifiche%> nuove notifiche</p>
+    <% else %>
+        <p>Non ci sono nuove notifiche</p>
+    <% end %>
+     <%= link_to "Controlla le tue notifiche", notifiche_utenti_path(user_id: @u.id) %>
+</div>
 
 <div>
 <% if @reservations.present? %>

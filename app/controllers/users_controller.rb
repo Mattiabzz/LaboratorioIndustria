@@ -62,6 +62,8 @@ class UsersController < ApplicationController
     # Assumi che tu abbia un metodo per recuperare il manager attualmente connesso
     @u = User.find_by(id: session[:user_id]) if session[:user_id]
 
+    @notifiche =  @u.notify_users.where(letto: 'false').size
+
     @reservations = @u.reservations.includes(:event)
     
  end

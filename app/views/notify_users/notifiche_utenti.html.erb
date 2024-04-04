@@ -1,0 +1,32 @@
+<div class="notifche_nuove">
+    <% if @notifiche_nuove.empty? %>
+        <p> Non ci sono nuove notifiche da leggere </p>
+    <% else %>
+        <p> Notifiche nuove</p>
+        <ol>
+        <% @notifiche_nuove.each do |n_nuova| %>
+            <li><%= n_nuova.tipo %></li>
+        
+        <% end %>
+        </ol>
+
+    <% end %>
+</div>
+
+<div class="notifche_vecchie">
+    <% if @notifiche_vecchie.empty?%>
+        <p> Non ci sono vecchie notifiche da leggere </p>
+    <% else %>
+        <p> Notifiche vecchie</p>
+        <ol>
+        <% @notifiche_vecchie.each do |n_vecchie| %>
+            <li><%= n_vecchie.tipo %></li>
+        
+        <% end %>
+        </ol>
+
+    <% end %>
+</div>
+
+<!-- Bottone di logout -->
+<%= link_to "Torna alla dashboard", user_dashboard_path %>
