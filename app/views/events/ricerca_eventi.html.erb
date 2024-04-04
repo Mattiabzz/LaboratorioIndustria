@@ -1,3 +1,11 @@
+ <div class="alert-primary" role="alert">
+      <% if flash[:notice] %>
+        <div class="alert alert-primary"><%= flash[:notice] %></div>
+      <% end %>
+    </div>
+
+
+
 <%= form_tag(ricerca_eventi_path, method: "get") do %>
   <%= text_field_tag :search, params[:search], placeholder: "Cerca eventi..." %>
   <%= submit_tag "Cerca" %>
