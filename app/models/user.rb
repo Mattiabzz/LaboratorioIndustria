@@ -7,8 +7,8 @@ has_many :events,
 
 #una persona ha più notifiche 
 has_many :notify_users
-has_many :events,
-:through => :notify_users, source: :event
+# has_many :events,
+# :through => :notify_users, source: :event
 
 validates :nome, presence: true
 validates :cognome, presence: true
