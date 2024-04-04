@@ -33,6 +33,8 @@ before_create :imposta_capacita_corrente
 after_update :notify_users_of_changes
 before_destroy :cancella_prenotazioni
 after_update :notify_capacita_massima_raggiunta
+before_update :verifica_capacita_minima
+
 
 def data_fine_dopo_data_inizio
   #data_inizio && data_fine controlla che non sia null && poi controlla che fine sia maggiore di inizio
@@ -80,5 +82,15 @@ def notify_capacita_massima_raggiunta
     NotifyManager.create(tipo: "Capacita' massima raggiunta " + nome,manager_id: manager.id)
   end
 end
+
+def verifica_capacita_minima
+  # Controlla se il nuovo valore della capacità è inferiore alla capacità corrente
+  if capacita < capacita_corrente
+    errors.add(:capacita, "non può essere inferiore alla capacità corrente")
+    throw :abort
+  end
+end
+
+
 
 end
