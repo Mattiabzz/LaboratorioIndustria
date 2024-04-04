@@ -2,7 +2,8 @@
 <html>
   <head>
     <title>EventsOrganizer</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -12,20 +13,43 @@
 
   <body>
 
+
+ <nav class="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Events Organizer</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExample02">
+        <ul class="navbar-nav me-auto">
+        </ul>
+       
+      </div>
+    </div>
+  </nav>
     <!-- stampa solo i flash di errore-->
-    <% if flash[:error] %>
-      <div class="flash-error"><%= flash[:error] %></div>
-    <% end %>
+    
 
     <!-- stampa tutti i flash-->
-    <% flash.each do |message_type, message| %>
+    <%
+=begin%>
+ <% flash.each do |message_type, message| %>
       <div class="flash-<%= message_type %>"><%= message %></div>
-    <% end %>
+    <% end %> 
+<%
+=end%>
 
+<main role="main" class="container">
 
+    <div class="alert-primary" role="alert">
+      <% if flash[:error] %>
+        <div class="alert alert-danger"><%= flash[:error] %></div>
+      <% end %>
+    </div>
 
     <%= yield %>
-
+</main>
 
   </body>
 </html>

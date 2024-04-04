@@ -1,8 +1,8 @@
 <div class="notifche_nuove">
     <% if @notifiche_nuove.empty? %>
-        <p> Non ci sono nuove notifiche da leggere </p>
+        <p> <h6>Non ci sono nuove notifiche da leggere</h6> </p>
     <% else %>
-        <p> Notifiche nuove</p>
+        <p> <h6>Notifiche nuove:</h6></p>
         <ol>
         <% @notifiche_nuove.each do |n_nuova| %>
             <li><%= n_nuova.tipo %></li>
@@ -15,9 +15,9 @@
 
 <div class="notifche_vecchie">
     <% if @notifiche_vecchie.empty?%>
-        <p> Non ci sono vecchie notifiche da leggere </p>
+        <p> <h6>Non ci sono vecchie notifiche da leggere </h6></p>
     <% else %>
-        <p> Notifiche vecchie</p>
+        <p> <h6>Notifiche vecchie:</h6></p>
         <ol>
         <% @notifiche_vecchie.each do |n_vecchie| %>
             <li><%= n_vecchie.tipo %></li>
@@ -29,4 +29,4 @@
 </div>
 
 <!-- Bottone di logout -->
-<%= link_to "Torna alla dashboard", user_dashboard_path %>
+<%= link_to "Torna alla dashboard", user_dashboard_path ,:class => "btn btn-dark"%>

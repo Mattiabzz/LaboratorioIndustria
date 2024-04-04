@@ -1,22 +1,22 @@
 <% if current_user %>
     <h1>Dashboard di <%= current_user.nome %>!</h1>
-    <p>Benvenuto</p>
+    <p>Benvenuto!</p>
 
 <% end %>
 
 <div class="notifiche">
     <% if @notifiche != 0 %>
-        <p>ci sono <%=@notifiche%> nuove notifiche</p>
+        <p>ci sono <%=@notifiche%> nuove notifiche
     <% else %>
-        <p>Non ci sono nuove notifiche</p>
+        <p>Non ci sono nuove notifiche
     <% end %>
-     <%= link_to "Controlla le tue notifiche", notifiche_utenti_path(user_id: @u.id) %>
+     <%= link_to "Controlla le tue notifiche", notifiche_utenti_path(user_id: @u.id),:class => "btn btn-primary" %></p>
 </div>
 
 <div>
 <% if @reservations.present? %>
-  <h2>Eventi alla quale partecipi <%= @u.nome %></h2>
-            <table>
+  <h2>Eventi alla quale partecipi </h2>
+            <table class="table table-striped">
             <thead>
                 <tr>
                 <th>Nome dell'evento</th>
@@ -47,7 +47,7 @@
                     <td><%= reservation.event.capacita %></td>
                     <td><%= reservation.event.capacita_corrente %></td> 
                     <td><%= reservation.data_prenotazione %></td> 
-                    <td><%= button_to "Cancella", reservation_path(reservation, invocatore: "user"),method: :delete ,data: { confirm: "Sei sicuro di voler cancellare questa prenotazione?" }%></td>
+                    <td><%= button_to "Cancella", reservation_path(reservation, invocatore: "user"),:class => "btn btn-danger",method: :delete ,data: { confirm: "Sei sicuro di voler cancellare questa prenotazione?" }%></td>
                     <!-- Aggiungi altre colonne secondo necessità -->
                 </tr>
                 <% end %>
@@ -59,16 +59,18 @@
 </div>
 
 <div class="ricerca-eventi">
-    <%= link_to "Cerca nuovi eventi", ricerca_eventi_path %>
+    <%= link_to "Cerca nuovi eventi", ricerca_eventi_path ,:class=> "btn btn-primary"%>
+
+    <% if current_user %>
+        <%= link_to "Modifica il tuo profilo", edit_user_path(@u),:class=> "btn btn-primary",method: :update %>
+    <% end %>
+
 </div>
 
-<% if current_user %>
-    <%= link_to "Modifica il tuo profilo", edit_user_path(@u), method: :update %>
-<% end %>
-
-
+ <hr>
 <!-- Bottone di logout -->
-<% if current_user %>
-    <%= button_to "Logout", logout_user_path, method: :delete %>
-<% end %>
-
+<div class="logout">
+    <% if current_user %>
+        <%= button_to "Logout", logout_user_path,:class => "btn btn-dark" ,method: :delete %>
+    <% end %>
+</div>

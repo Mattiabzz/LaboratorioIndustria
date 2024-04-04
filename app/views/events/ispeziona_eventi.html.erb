@@ -1,6 +1,6 @@
 <% if @e.present? %>
     <div class="informazioni evento">
-        <p>informazioni evento</p>
+        <p><h6>informazioni evento</h6></p>
         <p>nome = <%= @e.nome%></p>
         <p>descrizione = <%= @e.descrizione%></p>
         <p>data_inizio = <%= @e.data_inizio%></p>
@@ -12,8 +12,8 @@
     <div class="tabella partecipanti">
 
         <% if @reservations.present? %>
-
-             <table>
+              <p><h6>lista partecipanti:</h6></p>
+             <table class="table table-striped">
                 <thead>
                     <tr>
                     <th>Nome</th>
@@ -35,7 +35,7 @@
                         <td><%= reservation.data_prenotazione %></td>
                         
                         
-                        <td><%= button_to "Cancella", reservation_path(reservation, invocatore: "manager"),method: :delete ,data: { confirm: "Sei sicuro di voler cancellare questa prenotazione?" }%></td>
+                        <td><%= button_to "Cancella", reservation_path(reservation, invocatore: "manager"),:class => "btn btn-danger",method: :delete ,data: { confirm: "Sei sicuro di voler cancellare questa prenotazione?" }%></td>
                         <!-- Aggiungi altre colonne secondo necessità -->
                     </tr>
                     <% end %>
@@ -46,7 +46,7 @@
 
 
         <% else %>
-            <p>Nessun partecipante</p>
+            <p><h6>Nessun partecipante</h6></p>
         <% end %>
 
     </div>
@@ -57,4 +57,4 @@
 <% end %>
 
 <!-- Bottone di back -->
-<%= link_to "Torna alla dashboard", manager_dashboard_path %>
+<%= link_to "Torna alla dashboard", manager_dashboard_path,:class => "btn btn-dark" %>

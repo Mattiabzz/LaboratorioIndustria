@@ -5,7 +5,7 @@
 
 <% if @events.present? %>
 
-<table>
+<table class="table table-striped">
             <thead>
                 <tr>
                 <th>Nome dell'evento</th>
@@ -34,7 +34,7 @@
                     <td><%= event.data_fine %></td>
                     <td><%= event.capacita %></td>
                     <td><%= event.capacita_corrente %></td> 
-                    <td><%= button_to "Prenota", reservations_path, params: { reservation: { event_id: event.id } },method: :post %></td>
+                    <td><%= button_to "Prenota", reservations_path, params: { reservation: { event_id: event.id } },:class => "btn btn-primary",method: :post %></td>
                     <!-- Aggiungi altre colonne secondo necessità -->
                 </tr>
                 <% end %>
@@ -49,5 +49,5 @@
 <% end %>
 
 <!-- Bottone di logout -->
-<%= link_to "Torna alla dashboard", user_dashboard_path %>
+<%= link_to "Torna alla dashboard", user_dashboard_path ,:class => "btn btn-dark"%>
 

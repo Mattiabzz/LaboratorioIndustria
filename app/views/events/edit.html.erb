@@ -7,10 +7,10 @@
 
 <div>
   <!-- link per cancellare l'evento-->
-  <%= button_to "Cancella questo evento", event_path(@event), method: :delete %>
+  <%= button_to "Cancella questo evento", event_path(@event),:class => "btn btn-danger", method: :delete %>
 </div>
 
-<div>
+<div class="p">
   <!--<%= link_to "Show this event", @event %> | -->
-  <%= link_to "Torna alla dashboard", manager_dashboard_path %>
+  <%= link_to "Torna alla dashboard", manager_dashboard_path ,:class => "btn btn-dark"%>
 </div>

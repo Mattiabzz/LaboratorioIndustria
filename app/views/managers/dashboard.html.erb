@@ -8,21 +8,21 @@
 
 <div class="notifiche">
     <% if @notifiche != 0 %>
-        <p>ci sono <%=@notifiche%> nuove notifiche</p>
+        <p>ci sono <%=@notifiche%> nuove notifiche
     <% else %>
-        <p>Non ci sono nuove notifiche</p>
+        <p>Non ci sono nuove notifiche
     <% end %>
-     <%= link_to "Controlla le tue notifiche", notifiche_manager_path(manager_id: @m.id) %>
+     <%= link_to "Controlla le tue notifiche", notifiche_manager_path(manager_id: @m.id) ,:class => "btn btn-primary"%></p>
 </div>
 
 <div class="registration-link">
-    <%= link_to "Crea un nuovo evento", new_event_path%>
+    <%= link_to "Crea un nuovo evento", new_event_path,:class => "btn btn-primary"%>
 </div>
 
 <div>
 <% if @events.present? %>
   <h2>Eventi del manager <%= @m.nome %></h2>
-            <table>
+            <table class="table table-striped">
             <thead>
                 <tr>
                 <th>Nome dell'evento</th>
@@ -52,8 +52,8 @@
                     <td><%= event.data_fine %></td>
                     <td><%= event.capacita %></td>
                     <td><%= event.capacita_corrente %></td> 
-                    <td> <%= link_to "Ispeziona partecipanti", ispeziona_eventi_path(event_id: event.id) %></td>
-                    <td><%= link_to "Modifica evento", edit_event_path(event) %></td>
+                    <td> <%= link_to "Ispeziona partecipanti", ispeziona_eventi_path(event_id: event.id) ,:class => "btn btn-primary"%></td>
+                    <td><%= link_to "Modifica evento", edit_event_path(event) ,:class => "btn btn-primary"%></td>
                     <!-- Aggiungi altre colonne secondo necessità -->
                 </tr>
                 <% end %>
@@ -65,11 +65,12 @@
 </div>
 
 <% if current_user %>
-    <%= link_to "Modifica il tuo profilo", edit_manager_path(@m), method: :update %>
+    <%= link_to "Modifica il tuo profilo", edit_manager_path(@m),:class =>"btn btn-primary", method: :update %>
 <% end %>
 
+<hr>
 <!-- Bottone di logout -->
 <% if current_user %>
-    <%= button_to "Logout", logout_manager_path, method: :delete %>
+    <%= button_to "Logout", logout_manager_path,:class => "btn btn-dark", method: :delete %>
 <% end %>
 
