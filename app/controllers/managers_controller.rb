@@ -67,6 +67,9 @@ class ManagersController < ApplicationController
   def dashboard
      # Assumi che tu abbia un metodo per recuperare il manager attualmente connesso
      @m = Manager.find_by(id: session[:manager_id]) if session[:manager_id]
+
+     @notifiche =  @m.notify_managers.where(letto: 'false').size
+
      @events = @m.events
      
   end

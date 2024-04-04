@@ -57,6 +57,17 @@ class NotifyManagersController < ApplicationController
     end
   end
 
+  def notifiche_manager
+    manager = Manager.find(params[:manager_id])
+
+    @notifiche_nuove = manager.notify_managers.where(letto: false).to_a.dup
+
+    @notifiche_vecchie = manager.notify_managers.where(letto: true)
+
+    #manager.notify_managers.where(letto: false).update_all(letto: true)
+
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_notify_manager
@@ -65,6 +76,6 @@ class NotifyManagersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def notify_manager_params
-      params.require(:notify_manager).permit(:tipo, :manager_id, :event_id)
+      params.require(:notify_manager).permit(:manager_id, )
     end
 end

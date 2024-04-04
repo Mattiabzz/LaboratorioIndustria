@@ -5,6 +5,16 @@
 
 <% end %>
 
+
+<div class="notifiche">
+    <% if @notifiche != 0 %>
+        <p>ci sono <%=@notifiche%> nuove notifiche</p>
+    <% else %>
+        <p>Non ci sono nuove notifiche</p>
+    <% end %>
+     <%= link_to "Controlla le tue notifiche", notifiche_manager_path(manager_id: @m.id) %>
+</div>
+
 <div class="registration-link">
     <%= link_to "Crea un nuovo evento", new_event_path%>
 </div>

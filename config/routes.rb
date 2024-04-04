@@ -32,6 +32,10 @@ Rails.application.routes.draw do
 
   get '/ispeziona_eventi', to: 'events#ispeziona_eventi'
 
+  get '/notifiche_utenti', to: 'notify_users#notifiche_utenti'
+
+  get '/notifiche_manager', to: 'notify_managers#notifiche_manager'
+
   #post 'prenota_evento' to: 'reservation#prenota_evento'
 
 end
