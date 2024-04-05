@@ -1,5 +1,6 @@
 class NotifyManagersController < ApplicationController
   before_action :set_notify_manager, only: %i[ show edit update destroy ]
+  before_action :require_manager
 
   # GET /notify_managers or /notify_managers.json
   def index

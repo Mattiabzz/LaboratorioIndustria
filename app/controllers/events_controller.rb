@@ -1,7 +1,8 @@
 class EventsController < ApplicationController
   before_action :set_event, only: %i[ show edit update destroy ]
   #before_action :set_current_manager
-
+  before_action :require_user,only: [:ricerca_eventi]
+  before_action :require_manager,only: [:ispeziona_eventi,:edit,:create,:new]
   # GET /events or /events.json
   def index
     @events = Event.all

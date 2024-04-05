@@ -1,5 +1,6 @@
 class NotifyUsersController < ApplicationController
   before_action :set_notify_user, only: %i[ show edit update destroy ]
+  before_action :require_user
 
   # GET /notify_users or /notify_users.json
   def index
