@@ -74,11 +74,13 @@ class EventsController < ApplicationController
   end
 
   def ricerca_eventi
+
+    u = User.find(session[:user_id])
     
     if params[:search].present?
-      @events = Event.where("capacita_corrente < capacita AND nome LIKE ? OR descrizione LIKE ? OR luogo LIKE ? OR citta LIKE ? OR via LIKE ?" ,"%#{params[:search]}%","%#{params[:search]}%","%#{params[:search]}%","%#{params[:search]}%","%#{params[:search]}%")
+      @events = Event.where("capacita_corrente < capacita AND nome LIKE ? OR descrizione LIKE ? OR luogo LIKE ? OR citta LIKE ? OR via LIKE ?" ,"%#{params[:search]}%","%#{params[:search]}%","%#{params[:search]}%","%#{params[:search]}%","%#{params[:search]}%").where.not(id: u.reservations.pluck(:event_id))
     else
-      @events = Event.where("capacita_corrente < capacita ")
+      @events = Event.where("capacita_corrente < capacita ").where.not(id: u.reservations.pluck(:event_id))
     end
     #@events = @events.where("title LIKE ? OR description LIKE ? OR location LIKE ?", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%") if params[:search].present?
   end
