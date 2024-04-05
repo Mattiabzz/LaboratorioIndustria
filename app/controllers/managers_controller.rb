@@ -1,6 +1,6 @@
 class ManagersController < ApplicationController
   before_action :set_manager, only: %i[ show edit update destroy ]
-  before_action :require_manager
+  before_action :require_manager, except: [:new,:create]
 
   # GET /managers or /managers.json
   def index

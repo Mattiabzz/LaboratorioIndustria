@@ -1,7 +1,6 @@
 class ReservationsController < ApplicationController
   before_action :set_reservation, only: %i[ show edit update destroy ]
-  before_action :require_manager, only: [:destroy]
-  before_action :require_user, only: [:create,:destroy]
+
 
   # GET /reservations or /reservations.json
   def index
