@@ -63,7 +63,7 @@ class NotifyManagersController < ApplicationController
 
     @notifiche_nuove = manager.notify_managers.where(letto: false).to_a.dup
 
-    @notifiche_vecchie = manager.notify_managers.where(letto: true)
+    @notifiche_vecchie = manager.notify_managers.where(letto: true).to_a.dup
 
     manager.notify_managers.where(letto: false).update_all(letto: true)
 

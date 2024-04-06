@@ -63,7 +63,7 @@ class NotifyUsersController < ApplicationController
 
     @notifiche_nuove = utente.notify_users.where(letto: false).to_a.dup
 
-    @notifiche_vecchie = utente.notify_users.where(letto: true)
+    @notifiche_vecchie = utente.notify_users.where(letto: true).to_a.dup
 
     utente.notify_users.where(letto: false).update_all(letto: true)
 
