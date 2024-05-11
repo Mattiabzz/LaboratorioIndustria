@@ -1,0 +1,21 @@
+FROM ruby:3.3.0
+
+RUN apt-get update && apt-get install -y nodejs
+
+WORKDIR /events_organizer
+
+COPY Gemfile* .
+
+RUN bundle install
+
+
+
+COPY . .
+
+RUN bundle exec rake db:migrate
+
+RUN bundle exec rake db:seed
+
+EXPOSE 3000
+CMD ["./bin/rails", "server", "-b", "0.0.0.0"]
+
