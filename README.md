@@ -1,14 +1,11 @@
 <!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    * [Descrizione del progetto](#descrizione-del-progetto)
-    * [Passi comuni per l'installazione](#passi-comuni-per-l'installazione )
-    * [Esecuzione locale senza Docker ](#esecuzione-locale-senza-Docker )
-    * [Esecuzione con Docker ](#esecuzione-con-Docker)
-    * [Versioni utilizzate](#versioni-utilizzate)
-</ol>
-</details>
+## tabella dei contenuti
+* [Descrizione del progetto](#descrizione-del-progetto)
+* [Passi comuni per l'installazione](#passi-comuni-per-l'installazione )
+* [Esecuzione locale senza Docker ](#esecuzione-locale-senza-Docker )
+* [Esecuzione con Docker ](#esecuzione-con-Docker)
+* [Versioni utilizzate](#versioni-utilizzate)
+
 # Descrizione  del progetto
 
 L'applicazione web permette di gestire la prenotazione eventi e la relativa creazione di essi, tramite due ruoli gli utenti e i mananger, gli utenti saranno in grado di cercare eventi e prenotarsi mentre i manager saranno in grado di creare e modificare eventi.
