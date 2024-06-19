@@ -3,9 +3,7 @@
 one:
   tipo: MyText
   manager: one
-  event: one
 
 two:
   tipo: MyText
   manager: two
-  event: two

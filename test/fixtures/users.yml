@@ -6,10 +6,12 @@ one:
   email: MyString
   eta: 1
   codice_fiscale: MyText
+  password: password
 
 two:
   nome: MyString
   cognome: MyString
-  email: MyString
+  email: MyString2
   eta: 1
   codice_fiscale: MyText
+  password: password

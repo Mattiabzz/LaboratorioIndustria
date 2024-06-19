@@ -12,6 +12,16 @@ ENV RAILS_ENV="production" \
     BUNDLE_DEPLOYMENT="1" \
     BUNDLE_PATH="/usr/local/bundle" \
     BUNDLE_WITHOUT="development"
+    
+# Common layers
+RUN apt-get update -qq && apt-get upgrade -y
+RUN apt-get install -y curl gnupg2 libpq-dev
+RUN gem install bundler -v '~> 2.5.5'
+
+# Install nodejs
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash
+RUN apt-get install -y nodejs
+
 
 
 # Throw-away build stage to reduce size of final image

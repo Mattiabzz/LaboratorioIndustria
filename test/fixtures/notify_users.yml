@@ -3,9 +3,7 @@
 one:
   tipo: MyText
   user: one
-  event: one
 
 two:
   tipo: MyText
   user: two
-  event: two
