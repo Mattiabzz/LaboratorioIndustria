@@ -22,14 +22,14 @@ class ReservationsController < ApplicationController
 
   # POST /reservations or /reservations.json
   def create
-    puts "SONO IN CREATE"
+    #puts "SONO IN CREATE"
     @reservation = Reservation.new(reservation_params)
     current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
 
     reservation = current_user.reservations.build(reservation_params)
     reservation.data_prenotazione = Time.zone.now
 
-    puts "time zone now => #{Time.zone.now}"
+   # puts "time zone now => #{Time.zone.now}"
 
     #puts "reservaton è valido? #{reservation.valid?}"
 
