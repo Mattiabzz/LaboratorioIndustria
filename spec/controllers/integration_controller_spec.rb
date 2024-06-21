@@ -548,7 +548,292 @@ RSpec.describe "Events", type: :request do
     end
 
 
+    it "utente sbaglia l'email" do
+      
+      10.times do
+
+        @user = User.create!(
+          nome: Faker::Name.first_name,
+          cognome: Faker::Name.last_name,
+          email: Faker::Internet.email,
+          eta: Faker::Number.between(from: 18, to: 65),
+          codice_fiscale: Faker::Alphanumeric.alpha(number: 16).upcase,
+          password: Faker::Internet.password(min_length: 8)
+        )
+
+          post '/login', params: { email: Faker::Name.first_name, password: @user.password}
+
+          expect(flash[:error]).to eq("Email non valida.")
+
+
+      end#fie ciclo
     end
 
 
+    it "utente sbaglia password" do
+      
+      10.times do
+
+        @user = User.create!(
+          nome: Faker::Name.first_name,
+          cognome: Faker::Name.last_name,
+          email: Faker::Internet.email,
+          eta: Faker::Number.between(from: 18, to: 65),
+          codice_fiscale: Faker::Alphanumeric.alpha(number: 16).upcase,
+          password: Faker::Internet.password(min_length: 8)
+        )
+
+          post '/login', params: { email: @user.email, password: Faker::Internet.password(min_length: 8)}
+
+          expect(flash[:error]).to eq("password non valida.")
+
+
+      end#fie ciclo
+    end
+
+
+    it "logout utente" do
+      
+      10.times do
+
+        @user = User.create!(
+          nome: Faker::Name.first_name,
+          cognome: Faker::Name.last_name,
+          email: Faker::Internet.email,
+          eta: Faker::Number.between(from: 18, to: 65),
+          codice_fiscale: Faker::Alphanumeric.alpha(number: 16).upcase,
+          password: Faker::Internet.password(min_length: 8)
+        )
+
+          post '/login', params: { email: @user.email, password: @user.password}
+
+          delete logout_user_path(@user)
+
+          expect(flash[:notice]).to eq("Logout effettuato con successo.")
+          expect(response).to redirect_to(root_path)
+
+
+      end#fie ciclo
+    end
+
+
+    it "logout manager" do
+      
+      10.times do
+
+    
+        @manager = Manager.create!(
+          nome: Faker::Name.first_name,
+          cognome: Faker::Name.last_name,
+          email: Faker::Internet.email,
+          password: Faker::Internet.password(min_length: 8)
+        )
+
+          post '/login', params: { email: @manager.email, password: @manager.password}
+
+          delete logout_manager_path(@manager)
+
+          expect(flash[:notice]).to eq("Logout effettuato con successo.")
+          expect(response).to redirect_to(root_path)
+
+
+      end#fie ciclo
+    end
+
+    it "dashboard manager" do
+      
+      10.times do
+
+    
+        @manager = Manager.create!(
+          nome: Faker::Name.first_name,
+          cognome: Faker::Name.last_name,
+          email: Faker::Internet.email,
+          password: Faker::Internet.password(min_length: 8)
+        )
+
+          post '/login', params: { email: @manager.email, password: @manager.password}
+
+          get manager_dashboard_path(@manager)
+          
+          expect(response).to have_http_status(:ok)
+
+
+      end#fie ciclo
+    end
+
+
+    it "dashboard user" do
+      
+      10.times do
+
+          @user = User.create!(
+            nome: Faker::Name.first_name,
+            cognome: Faker::Name.last_name,
+            email: Faker::Internet.email,
+            eta: Faker::Number.between(from: 18, to: 65),
+            codice_fiscale: Faker::Alphanumeric.alpha(number: 16).upcase,
+            password: Faker::Internet.password(min_length: 8)
+          )
+
+          post '/login', params: { email: @user.email, password: @user.password}
+
+          get user_dashboard_path(@user)
+          
+          expect(response).to have_http_status(:ok)
+
+
+      end#fie ciclo
+    end
+
+    it "utente ricerca eventi" do
+      
+      10.times do
+
+          @user = User.create!(
+            nome: Faker::Name.first_name,
+            cognome: Faker::Name.last_name,
+            email: Faker::Internet.email,
+            eta: Faker::Number.between(from: 18, to: 65),
+            codice_fiscale: Faker::Alphanumeric.alpha(number: 16).upcase,
+            password: Faker::Internet.password(min_length: 8)
+          )
+
+          post '/login', params: { email: @user.email, password: @user.password}
+
+          get ricerca_eventi_path(@user)
+          
+          expect(response).to have_http_status(:ok)
+
+
+      end#fie ciclo
+    end
+
+    it "utente ricerca eventi con parametri" do
+      
+      10.times do
+
+          @user = User.create!(
+            nome: Faker::Name.first_name,
+            cognome: Faker::Name.last_name,
+            email: Faker::Internet.email,
+            eta: Faker::Number.between(from: 18, to: 65),
+            codice_fiscale: Faker::Alphanumeric.alpha(number: 16).upcase,
+            password: Faker::Internet.password(min_length: 8)
+          )
+
+          post '/login', params: { email: @user.email, password: @user.password}
+
+          get ricerca_eventi_path(@user, search: Faker::Lorem.sentence(word_count: 3))
+          
+          expect(response).to have_http_status(:ok)
+
+
+      end#fie ciclo
+    end
+
+    it "manager ispeziona eventi" do
+      
+      10.times do
+
+          @user = User.create!(
+            nome: Faker::Name.first_name,
+            cognome: Faker::Name.last_name,
+            email: Faker::Internet.email,
+            eta: Faker::Number.between(from: 18, to: 65),
+            codice_fiscale: Faker::Alphanumeric.alpha(number: 16).upcase,
+            password: Faker::Internet.password(min_length: 8)
+          )
+
+          @manager = Manager.create!(
+            nome: Faker::Name.first_name,
+            cognome: Faker::Name.last_name,
+            email: Faker::Internet.email,
+            password: Faker::Internet.password(min_length: 8)
+          )
+
+          data_inizio = Faker::Time.between(from: DateTime.now, to: DateTime.now + 30.days)
+          data_fine = data_inizio + Faker::Number.between(from: 1, to: 10).days
+          @event = Event.create!(
+            nome: Faker::Lorem.sentence(word_count: 3),
+            luogo: Faker::Address.city,
+            data_inizio: data_inizio,
+            descrizione: Faker::Lorem.paragraph,
+            capacita: Faker::Number.between(from: 10, to: 100),
+            capacita_corrente: Faker::Number.between(from: 0, to: 9),
+            manager_id: @manager.id,
+            data_fine: data_fine,
+            citta: Faker::Address.city,
+            via: Faker::Address.street_name
+          )
+
+          @reservation = Reservation.create!(
+            user_id:  @user.id,
+            event_id: @event.id,
+            data_prenotazione: DateTime.now
+          )
+
+          post '/login', params: { email: @manager.email, password: @manager.password}
+
+          get ispeziona_eventi_path(event_id: @event.id)
+          
+          expect(response).to have_http_status(:ok)
+
+      end#fie ciclo
+    end
+
+
+    it "manager cancella evento con prenotazioni" do
+      
+      10.times do
+
+          @user = User.create!(
+            nome: Faker::Name.first_name,
+            cognome: Faker::Name.last_name,
+            email: Faker::Internet.email,
+            eta: Faker::Number.between(from: 18, to: 65),
+            codice_fiscale: Faker::Alphanumeric.alpha(number: 16).upcase,
+            password: Faker::Internet.password(min_length: 8)
+          )
+
+          @manager = Manager.create!(
+            nome: Faker::Name.first_name,
+            cognome: Faker::Name.last_name,
+            email: Faker::Internet.email,
+            password: Faker::Internet.password(min_length: 8)
+          )
+
+          data_inizio = Faker::Time.between(from: DateTime.now, to: DateTime.now + 30.days)
+          data_fine = data_inizio + Faker::Number.between(from: 1, to: 10).days
+          @event = Event.create!(
+            nome: Faker::Lorem.sentence(word_count: 3),
+            luogo: Faker::Address.city,
+            data_inizio: data_inizio,
+            descrizione: Faker::Lorem.paragraph,
+            capacita: Faker::Number.between(from: 10, to: 100),
+            capacita_corrente: Faker::Number.between(from: 0, to: 9),
+            manager_id: @manager.id,
+            data_fine: data_fine,
+            citta: Faker::Address.city,
+            via: Faker::Address.street_name
+          )
+
+          @reservation = Reservation.create!(
+            user_id:  @user.id,
+            event_id: @event.id,
+            data_prenotazione: DateTime.now
+          )
+
+          post '/login', params: { email: @manager.email, password: @manager.password}
+
+          delete event_path(@event)
+          
+          expect(response).to redirect_to(manager_dashboard_path)
+
+      end#fie ciclo
+    end
+
+
+
+    end
 end
