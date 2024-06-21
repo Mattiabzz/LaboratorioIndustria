@@ -3,17 +3,23 @@
 one:
   nome: MyString
   luogo: MyString
-  data: 2024-03-30 14:46:22
+  data_inizio: 2024-03-30 14:46:22
   descrizione: MyText
   capacita: 1
   capacita_corrente: 1
   manager: one
+  data_fine: 2024-03-30 16:46:22
+  citta: Roma
+  via: Via Uno
 
 two:
   nome: MyString
   luogo: MyString
-  data: 2024-03-30 14:46:22
+  data_inizio: 2024-03-31 10:00:00
   descrizione: MyText
   capacita: 1
   capacita_corrente: 1
   manager: two
+  data_fine: 2024-03-31 12:00:00
+  citta: Milano
+  via: Via Due
