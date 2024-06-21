@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_03_164008) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_18_093239) do
   create_table "events", force: :cascade do |t|
     t.string "nome"
     t.string "luogo"
@@ -73,17 +73,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_164008) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password"
-  end
-
-  create_table "utentes", force: :cascade do |t|
-    t.string "nome"
-    t.string "cognome"
-    t.integer "eta"
-    t.string "email"
-    t.string "codice_fiscale"
-    t.string "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "events", "managers"

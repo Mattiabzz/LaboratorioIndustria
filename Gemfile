@@ -74,3 +74,7 @@ gem "jsbundling-rails", "~> 1.3"
 gem "bootstrap" ,"~> 5.3.0"
 
 gem "sassc-rails" 
+
+gem 'rspec-rails'
+gem 'faker'
+gem 'simplecov'
