@@ -148,6 +148,17 @@ RSpec.describe "Events", type: :request do
 
       it "check notify user" do
 
+        
+        post '/login', params: { email: user.email, password: user.password }
+        
+        post '/reservations', params: {
+          reservation: {
+            user_id: user.id,
+            event_id: event.id,
+            data_prenotazione: DateTime.now
+          }
+        }
+        
         post '/login', params: { email: manager.email, password: manager.password }
 
         10.times do
@@ -159,7 +170,7 @@ RSpec.describe "Events", type: :request do
                 nome: new_nome
                 }
             }
-        
+
             # Verifica che l'evento nel database sia stato aggiornato correttamente
             updated_event = Event.find(event.id)
             expect(updated_event.nome).to eq(new_nome)
@@ -167,11 +178,12 @@ RSpec.describe "Events", type: :request do
             # Verifica altri attributi aggiornati se necessario
             notify_user = NotifyUser.last
             expect(notify_user).to be_present
-           
+            expect(notify_user.tipo).to match(/"nome"=>/i)
+            expect(notify_user.user_id).to eq(user.id)
           
 
 
-        end
+        end#fine ciclo
       end#fine it di update
 
 
@@ -212,19 +224,57 @@ RSpec.describe "Events", type: :request do
       it "check notify manager capacita raggiunta" do
         post '/login', params: { email: manager.email, password: manager.password }
 
-        
+        data_inizio = Faker::Time.between(from: DateTime.now, to: DateTime.now + 30.days)
+        data_fine = data_inizio + Faker::Number.between(from: 1, to: 10).days
+
+        nome = "test capacita"
+        capacita = 10
+
+        post '/events', params: {
+          event: {
+            nome: nome,
+            luogo: Faker::Address.city,
+            data_inizio: data_inizio,
+            data_fine: data_fine,
+            descrizione: Faker::Lorem.paragraph,
+            capacita: capacita,
+            capacita_corrente: 0,
+            manager_id: Manager.find_by(email: "mario.rossi@example.com"),
+            citta: Faker::Address.city,
+            via: Faker::Address.street_name
+            # Puoi aggiungere altri attributi secondo necessità
+          }
+        }
+
+
+        e = Event.find_by(nome: nome,capacita: capacita)
+
         10.times do
+
+          email = Faker::Internet.email
+          password = Faker::Internet.password(min_length: 8)
+          user_params = {
+            nome: Faker::Name.first_name,
+            cognome: Faker::Name.last_name,
+            email: email,
+            eta: Faker::Number.between(from: 18, to: 100),
+            codice_fiscale: Faker::Alphanumeric.alphanumeric(number: 10),
+            password: password
+          }
+
+          # Effettua una richiesta POST per creare un nuovo utente
+          post '/users', params: { user: user_params }
           
-          user_id = Faker::Number.between(from: 18, to: 65)
-          
-          e =  Event.find(event2.id)
-          
+          user_id = User.find_by(email: email,password: password)
           post '/login', params: { email: user.email, password: user.password }
+          
+          # puts "user id è #{user_id.id}"
+
           
           post '/reservations', params: {
             reservation: {
-                user_id: user_id,
-                event_id: event2.id,
+                user_id: user_id.id,
+                event_id: e.id,
                 data_prenotazione: DateTime.now
               }
             }
