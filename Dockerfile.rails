@@ -8,8 +8,6 @@ COPY Gemfile* .
 
 RUN bundle install
 
-
-
 COPY . .
 
 RUN bundle exec rake db:migrate
