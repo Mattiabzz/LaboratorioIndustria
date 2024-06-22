@@ -1,0 +1,63 @@
+# This workflow uses actions that are not certified by GitHub.  They are
+# provided by a third-party and are governed by separate terms of service,
+# privacy policy, and support documentation.
+#
+# This workflow will install a prebuilt Ruby version, install dependencies, and
+# run tests and linters.
+name: "Ruby on Rails CICD"
+on:
+  push:
+    branches:       
+       - Main
+       - bootstrapFix
+  pull_request:
+    branches: 
+       - Main
+       - bootstrapFix
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      # Add or replace dependency steps here
+      #- name: Install Ruby and gems
+      #  uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.3.0
+          #bundler-cache: true
+      - name: Install dependencies
+        run: |
+            gem install bundler
+            bundle install
+      - name: Setup database
+        run: |
+            bundle exec rails db:create
+            bundle exec rails db:migrate RAILS_ENV=test
+            bundle exec rails db:seed RAILS_ENV=test
+      - name: Run tests con Rspec
+        run: |
+            bundle exec rspec
+      - name: Run unit tests
+        run: |
+          bundle exec rails test test/models/event_test.rb
+          bundle exec rails test test/models/manager_test.rb
+          bundle exec rails test test/models/user_test.rb
+
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Docker build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile.rails
+          push: true
+          tags: mattiabz/event_org:latest
