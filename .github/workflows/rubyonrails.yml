@@ -17,11 +17,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    services:
-       db:
-        image: sqlite
-        ports:
-          - 3306/tcp
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
