@@ -29,8 +29,6 @@ class EventTest < ActiveSupport::TestCase
 
     test "evento valido n=#{i}" do
       @event = crea_dati
-      # event = Event.new(@event_attrs)
-      # assert event.save
       assert @event.valid?
     end
 

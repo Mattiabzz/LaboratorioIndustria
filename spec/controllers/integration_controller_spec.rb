@@ -2,8 +2,8 @@ require 'rails_helper'
 require 'faker'
 # require 'rspec/propcheck'
 
-RSpec.describe "Events", type: :request do
-  describe "POST /events" do
+RSpec.describe "Test", type: :request do
+  describe "POST" do
     let(:manager) do
       Manager.create!(
         nome: "Mario",
@@ -19,8 +19,7 @@ RSpec.describe "Events", type: :request do
     end
 
     it "creates an event after manager is authenticated" do
-      # Verifica che il manager sia autenticato
-      #expect(response).to have_http_status(200)
+
       10.times do
       # Crea un evento con data di fine successiva alla data di inizio
       data_inizio = Faker::Time.between(from: DateTime.now, to: DateTime.now + 30.days)
@@ -37,12 +36,9 @@ RSpec.describe "Events", type: :request do
           manager_id: Manager.find_by(email: "mario.rossi@example.com"),
           citta: Faker::Address.city,
           via: Faker::Address.street_name
-          # Puoi aggiungere altri attributi secondo necessità
         }
       }
-      #expect(response).to have_http_status(200)
-      #expect(response.body).to include("Event was successfully created.")
-
+  
       # Verifica che l'evento sia stato creato nel database
       created_event = Event.find_by(manager_id: Manager.find_by(email: "mario.rossi@example.com"))
       expect(created_event.nome).to be_present
@@ -62,7 +58,7 @@ RSpec.describe "Events", type: :request do
       expect(created_event.data_fine).to be > created_event.data_inizio
       end
     end
-   
+
   end #fine parte post
 
   describe "patch /events" do
@@ -175,7 +171,6 @@ RSpec.describe "Events", type: :request do
             updated_event = Event.find(event.id)
             expect(updated_event.nome).to eq(new_nome)
 
-            # Verifica altri attributi aggiornati se necessario
             notify_user = NotifyUser.last
             expect(notify_user).to be_present
             expect(notify_user.tipo).to match(/"nome"=>/i)
@@ -184,7 +179,7 @@ RSpec.describe "Events", type: :request do
 
 
         end#fine ciclo
-      end#fine it di update
+      end#fine it 
 
 
       it "check notify manager" do
@@ -212,7 +207,6 @@ RSpec.describe "Events", type: :request do
               }
             }
 
-            # # Verifica altri attributi aggiornati se necessario
             notify_manager = NotifyManager.last
             expect(notify_manager).to be_present
             expect(notify_manager.tipo).to match(/Utente/i) #contiene / inzia con utente
@@ -220,16 +214,15 @@ RSpec.describe "Events", type: :request do
         end
       end#fine it di update
 
-
       it "check notify manager capacita raggiunta" do
         post '/login', params: { email: manager.email, password: manager.password }
-
+  
         data_inizio = Faker::Time.between(from: DateTime.now, to: DateTime.now + 30.days)
         data_fine = data_inizio + Faker::Number.between(from: 1, to: 10).days
-
+  
         nome = "test capacita"
         capacita = 10
-
+  
         post '/events', params: {
           event: {
             nome: nome,
@@ -242,15 +235,14 @@ RSpec.describe "Events", type: :request do
             manager_id: Manager.find_by(email: "mario.rossi@example.com"),
             citta: Faker::Address.city,
             via: Faker::Address.street_name
-            # Puoi aggiungere altri attributi secondo necessità
           }
         }
-
-
+  
+  
         e = Event.find_by(nome: nome,capacita: capacita)
-
+  
         10.times do
-
+  
           email = Faker::Internet.email
           password = Faker::Internet.password(min_length: 8)
           user_params = {
@@ -261,15 +253,12 @@ RSpec.describe "Events", type: :request do
             codice_fiscale: Faker::Alphanumeric.alphanumeric(number: 10),
             password: password
           }
-
+  
           # Effettua una richiesta POST per creare un nuovo utente
           post '/users', params: { user: user_params }
           
           user_id = User.find_by(email: email,password: password)
           post '/login', params: { email: user.email, password: user.password }
-          
-          # puts "user id è #{user_id.id}"
-
           
           post '/reservations', params: {
             reservation: {
@@ -278,18 +267,16 @@ RSpec.describe "Events", type: :request do
                 data_prenotazione: DateTime.now
               }
             }
-
-            # # Verifica altri attributi aggiornati se necessario
+  
             notify_manager = NotifyManager.last
             expect(notify_manager).to be_present
-
+  
             if e.capacita_corrente == e.capacita
               expect(notify_manager.tipo).to match(/Capacita' massima raggiunta/i)
             end
         
         end
-      end#fine it di update
-
+      end#fine it 
 
 
     end#fine patch
@@ -297,7 +284,6 @@ RSpec.describe "Events", type: :request do
     describe "get notifiche" do
 
     it "nuovo utente controlla notifiche " do
-
 
       10.times do
 
@@ -377,7 +363,6 @@ RSpec.describe "Events", type: :request do
             password: "password"
           )
           
-         # user = User.find_by(email: email,password: password)
           post '/login', params: { email: @user.email, password: @user.password}
 
           data_inizio = Faker::Time.between(from: DateTime.now, to: DateTime.now + 30.days)
@@ -401,16 +386,11 @@ RSpec.describe "Events", type: :request do
             data_prenotazione: DateTime.now
           )
 
-          # r = Reservation.find_by(user_id:user.id,event_id: e.id)
-
-          
-          #reservation_path(reservation, invocatore: "user")
-
           delete reservation_path(@reservation.id, invocatore: "user")
 
           expect(response).to redirect_to(user_dashboard_path)
 
-      end#fie ciclo
+      end#fine ciclo
     end
 
     it "nuovo manager elimina prenotazione " do
@@ -433,7 +413,6 @@ RSpec.describe "Events", type: :request do
             password: "password"
           )
           
-         # user = User.find_by(email: email,password: password)
           post '/login', params: { email: @manager.email, password: @manager.password}
 
           data_inizio = Faker::Time.between(from: DateTime.now, to: DateTime.now + 30.days)
@@ -457,16 +436,11 @@ RSpec.describe "Events", type: :request do
             data_prenotazione: DateTime.now
           )
 
-          # r = Reservation.find_by(user_id:user.id,event_id: e.id)
-
-          
-          #reservation_path(reservation, invocatore: "user")
-
           delete reservation_path(@reservation.id, invocatore: "manager")
 
           expect(response).to redirect_to(ispeziona_eventi_path)
 
-      end#fie ciclo
+      end#fine ciclo
     end
 
     let(:new_manager) do
@@ -480,7 +454,6 @@ RSpec.describe "Events", type: :request do
 
     it "manager aggiorna il suo profilo " do
 
-      
       10.times do
 
           @manager = Manager.create!(
@@ -502,7 +475,7 @@ RSpec.describe "Events", type: :request do
 
           expect(response).to redirect_to(manager_dashboard_path)
 
-      end#fie ciclo
+      end#fine ciclo
     end
 
 
@@ -544,7 +517,7 @@ RSpec.describe "Events", type: :request do
 
           expect(response).to redirect_to(user_dashboard_path)
 
-      end#fie ciclo
+      end#fine ciclo
     end
 
 
@@ -566,7 +539,7 @@ RSpec.describe "Events", type: :request do
           expect(flash[:error]).to eq("Email non valida.")
 
 
-      end#fie ciclo
+      end#fine ciclo
     end
 
 
@@ -588,7 +561,7 @@ RSpec.describe "Events", type: :request do
           expect(flash[:error]).to eq("password non valida.")
 
 
-      end#fie ciclo
+      end#fine ciclo
     end
 
 
@@ -613,7 +586,7 @@ RSpec.describe "Events", type: :request do
           expect(response).to redirect_to(root_path)
 
 
-      end#fie ciclo
+      end#fine ciclo
     end
 
 
@@ -637,7 +610,7 @@ RSpec.describe "Events", type: :request do
           expect(response).to redirect_to(root_path)
 
 
-      end#fie ciclo
+      end#fine ciclo
     end
 
     it "dashboard manager" do
@@ -659,7 +632,7 @@ RSpec.describe "Events", type: :request do
           expect(response).to have_http_status(:ok)
 
 
-      end#fie ciclo
+      end#fine ciclo
     end
 
 
@@ -683,7 +656,7 @@ RSpec.describe "Events", type: :request do
           expect(response).to have_http_status(:ok)
 
 
-      end#fie ciclo
+      end#fine ciclo
     end
 
     it "utente ricerca eventi" do
@@ -706,7 +679,7 @@ RSpec.describe "Events", type: :request do
           expect(response).to have_http_status(:ok)
 
 
-      end#fie ciclo
+      end#fine ciclo
     end
 
     it "utente ricerca eventi con parametri" do
@@ -729,7 +702,7 @@ RSpec.describe "Events", type: :request do
           expect(response).to have_http_status(:ok)
 
 
-      end#fie ciclo
+      end#fine ciclo
     end
 
     it "manager ispeziona eventi" do
@@ -779,7 +752,7 @@ RSpec.describe "Events", type: :request do
           
           expect(response).to have_http_status(:ok)
 
-      end#fie ciclo
+      end#fine ciclo
     end
 
 
@@ -830,10 +803,8 @@ RSpec.describe "Events", type: :request do
           
           expect(response).to redirect_to(manager_dashboard_path)
 
-      end#fie ciclo
+      end#fine ciclo
     end
-
-
 
     end
 end
